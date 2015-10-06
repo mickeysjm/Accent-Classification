@@ -1,0 +1,13 @@
+Original 
+./svm-train PCS
+./svm-predict PCS.t PCS.model PCS.t.predict
+
+Scale
+./svm-scale -l -1 -u 1 -s range1 PCS > PCS.scale
+./svm-scale -r range1 PCS.t > PCS.t.scale
+Parameter selection
+python grid.py PCS.scale
+-> get C & \gamma
+./svm-train -c C -g G PCS.scale
+./svm-predict PCS.t.scale PCS.scale.model PCS.t.predict
+
